@@ -1,4 +1,4 @@
-package com.felipetomazini.course.entitires;
+package com.felipetomazini.course.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
