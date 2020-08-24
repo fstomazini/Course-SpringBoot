@@ -4,6 +4,7 @@ package com.felipetomazini.course.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.felipetomazini.course.entities.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,13 +24,16 @@ public class Order implements Serializable {
     @JoinColumn(name= "client_id")
     private User client;
 
+    private Integer orderStatus;
+
     public Order() {
     }
 
-    public Order(Long id, Instant instant, User client) {
+    public Order(Long id, Instant instant,OrderStatus orderStatus, User client) {
         this.id = id;
         this.instant = instant;
         this.client = client;
+        setOrderStatus(orderStatus);
     }
 
     public Long getId() {
@@ -44,12 +48,20 @@ public class Order implements Serializable {
         return client;
     }
 
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
 
     public void setInstant(Instant instant) {
         this.instant = instant;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus.getCode();
     }
 
     public void setClient(User client) {
