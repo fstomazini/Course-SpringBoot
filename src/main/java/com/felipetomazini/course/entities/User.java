@@ -1,5 +1,7 @@
 package com.felipetomazini.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class User implements Serializable {
     private String Email;
     private String phone;
     private String password;
+
 
     @OneToMany(mappedBy = "client")
     private List<Order> Orders = new ArrayList<>();

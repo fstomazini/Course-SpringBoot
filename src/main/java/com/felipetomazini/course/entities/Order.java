@@ -2,6 +2,9 @@ package com.felipetomazini.course.entities;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -11,9 +14,11 @@ import java.util.Objects;
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant instant;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name= "client_id")
     private User client;
@@ -21,13 +26,13 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(long id, Instant instant, User client) {
+    public Order(Long id, Instant instant, User client) {
         this.id = id;
         this.instant = instant;
         this.client = client;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -39,7 +44,7 @@ public class Order implements Serializable {
         return client;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
