@@ -1,0 +1,66 @@
+package com.felipetomazini.course.entities;
+
+
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.Objects;
+@Entity
+@Table(name = "tb_order")
+public class Order implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private Instant instant;
+
+    @ManyToOne
+    @JoinColumn(name= "client_id")
+    private User client;
+
+    public Order() {
+    }
+
+    public Order(long id, Instant instant, User client) {
+        this.id = id;
+        this.instant = instant;
+        this.client = client;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Instant getInstant() {
+        return instant;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setInstant(Instant instant) {
+        this.instant = instant;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return getId() == order.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+}
