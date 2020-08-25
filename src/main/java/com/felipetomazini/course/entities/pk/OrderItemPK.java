@@ -1,5 +1,6 @@
 package com.felipetomazini.course.entities.pk;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.felipetomazini.course.entities.Order;
 import com.felipetomazini.course.entities.Product;
 
@@ -17,6 +18,8 @@ public class OrderItemPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+
 
     public Order getOrder() {
         return order;
