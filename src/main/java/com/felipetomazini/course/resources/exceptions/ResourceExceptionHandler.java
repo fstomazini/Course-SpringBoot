@@ -22,4 +22,12 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(error);
 
     }
+    @ExceptionHandler(DatabaseExcepetion.class)
+    public ResponseEntity<StandardError> databaseGeneralError(DatabaseExcepetion e, HttpServletRequest request){
+        String strError = "Detabase undentified error";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError error = new StandardError(Instant.now(), status.value(), strError, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(error);
+
+    }
 }

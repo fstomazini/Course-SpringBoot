@@ -2,8 +2,11 @@ package com.felipetomazini.course.services;
 
 import com.felipetomazini.course.entities.User;
 import com.felipetomazini.course.repositories.UserRepository;
+import com.felipetomazini.course.resources.exceptions.DatabaseExcepetion;
 import com.felipetomazini.course.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 
@@ -29,10 +32,16 @@ public class UserService {
         return userRepository.save(obj);
     }
 
-    public void delete(Long id){
-        userRepository.deleteById(id);
-    }
+    public void delete(Long id) {
+        try {
+            userRepository.deleteById(id);
 
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DatabaseExcepetion(e.getMessage());
+        }
+    }
     public User update(Long id, User obj){
         User entity = userRepository.getOne(id);
         updateData(entity,obj);
